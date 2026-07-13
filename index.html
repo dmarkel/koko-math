@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Koko Math makes cheerful, printable math practice for early learners.">
+    <title>Koko Math — Printable math practice</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header" aria-label="Koko Math">
+      <a class="brand" href="#" id="home-link" aria-label="Koko Math home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>Koko Math</span>
+      </a>
+      <span class="header-note">Made for bright little minds</span>
+    </header>
+
+    <main>
+      <section class="landing-view" id="landing-view" aria-labelledby="landing-title">
+        <div class="hero-shell">
+          <div class="hero-copy">
+            <span class="eyebrow"><span aria-hidden="true">✦</span> Pick it. Print it. Practice!</span>
+            <h1 id="landing-title" tabindex="-1">A little math<br><span>goes a long way.</span></h1>
+            <p>Fresh practice sheets made for pencils, proud smiles, and growing confidence.</p>
+            <a class="jump-link" href="#worksheets">Choose a worksheet <span aria-hidden="true">↓</span></a>
+          </div>
+
+          <div class="hero-character" aria-hidden="true">
+            <span class="spark spark-one">✦</span>
+            <span class="spark spark-two">✦</span>
+            <span class="math-doodle doodle-plus">+</span>
+            <span class="math-doodle doodle-equals">=</span>
+            <img src="assets/koko-character.png" alt="">
+          </div>
+        </div>
+
+        <section class="worksheet-library" id="worksheets" aria-labelledby="library-title">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">Worksheet library</span>
+              <h2 id="library-title">What should we practice?</h2>
+            </div>
+            <p>More Koko Math sheets are on the way.</p>
+          </div>
+
+          <button class="worksheet-card" id="worksheet-card" type="button">
+            <span class="card-icon" aria-hidden="true">
+              <span>8 + 4</span>
+              <span>15 − 6</span>
+            </span>
+            <span class="card-content">
+              <span class="card-label">Grade 1 · 50 problems</span>
+              <strong>Addition &amp; subtraction within 20</strong>
+              <span>Mixed practice with no negative answers.</span>
+            </span>
+            <span class="card-action" aria-hidden="true">Make a sheet <b>→</b></span>
+          </button>
+        </section>
+      </section>
+
+      <section class="worksheet-view" id="worksheet-view" aria-labelledby="preview-title" hidden>
+        <div class="worksheet-toolbar" aria-label="Worksheet actions">
+          <button class="tool-button tool-button-back" id="back-button" type="button">
+            <span aria-hidden="true">←</span> All worksheets
+          </button>
+          <h1 id="preview-title" tabindex="-1">Your worksheet is ready!</h1>
+          <div class="toolbar-actions">
+            <button class="tool-button" id="new-button" type="button">
+              <span aria-hidden="true">↻</span> New worksheet
+            </button>
+            <button class="tool-button tool-button-primary" id="print-button" type="button">
+              <span aria-hidden="true">▣</span> Print worksheet
+            </button>
+          </div>
+        </div>
+
+        <div class="paper-stage">
+          <article class="worksheet-paper" aria-label="Printable math worksheet">
+            <header class="paper-header">
+              <div class="paper-brand">
+                <span class="paper-brand-dots" aria-hidden="true">•••</span>
+                <span>Koko Math</span>
+              </div>
+              <div class="student-fields">
+                <span>Name <i aria-hidden="true"></i></span>
+                <span>Date <i aria-hidden="true"></i></span>
+              </div>
+            </header>
+
+            <div class="paper-title">
+              <div>
+                <span>Mixed practice · within 20</span>
+                <h2>Addition &amp; Subtraction</h2>
+              </div>
+              <p>Do your best!</p>
+            </div>
+
+            <ol class="problem-grid" id="problem-grid" aria-label="50 math problems"></ol>
+
+            <footer class="paper-footer">
+              <span>KokoMath.com</span>
+              <span>Keep going—you’re doing great!</span>
+            </footer>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Koko Math</span>
+      <span>Practice makes progress.</span>
+    </footer>
+
+    <script type="module" src="src/app.js"></script>
+  </body>
+</html>
