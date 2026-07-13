@@ -18,7 +18,7 @@ Create the first worksheet set for Koko Math, a simple website that can grow int
 
 ### Landing page
 
-The landing page introduces Koko Math as a growing collection of printable practice sheets. It displays worksheet sets as clear cards. The first and only active card is “Addition & subtraction within 20,” labeled for Grade 1 and 50 problems. The structure will support adding more worksheet cards later without changing the generator flow.
+The landing page introduces Koko Math as a growing collection of printable practice sheets. A custom anime-style Koko character welcomes the learner beside the introduction. The page displays worksheet sets as clear cards. The first and only active card is “Addition & subtraction within 20,” labeled for Grade 1 and 50 problems. The structure will support adding more worksheet cards later without changing the generator flow.
 
 Selecting the active card generates a new worksheet immediately and opens its preview. The action should feel direct: there is no settings form for this first set.
 
@@ -36,9 +36,11 @@ Generating a new worksheet replaces all 50 problems. Printing hides the website 
 
 ## Visual direction
 
-Koko Math should feel cheerful and capable rather than babyish. The visual language borrows from a well-kept primary classroom: blue graph-paper lines, sunny yellow highlights, dark pencil-gray text, and a coral accent. Rounded shapes are reserved for interactive cards and buttons; the printed worksheet remains crisp and economical.
+Koko Math should feel cute, cheerful, and capable rather than babyish. The visual language borrows from the reference child's lemon-patterned dress and a well-kept primary classroom: soft sky blue, lemon yellow, leafy green, dark pencil-gray text, and a warm coral accent. Rounded shapes, sticker-like details, tiny stars, and gentle scallops can appear on the landing experience; the printed worksheet remains crisp and economical.
 
-The signature element is a small, friendly “Koko” wordmark built around paired counting dots. It creates a recognizable identity without using a stock mascot or requiring image assets. Screen typography may use system fonts so the site remains fast and offline-safe; the worksheet prioritizes highly legible print typography.
+The signature element is an original anime-style Koko character inspired by the girl in the middle of the supplied family photo. The illustration preserves recognizable high-level traits—her short straight brown bob, warm brown eyes, gentle expression, and yellow lemon-print dress—while translating them into an age-appropriate, friendly anime character holding a pencil and a small math worksheet. The character is a waist-up or three-quarter cutout used on the landing page and worksheet card. It contains no text, watermark, or other people. The source family photo is used only as generation reference and is not copied into or published with the website.
+
+A friendly “Koko Math” wordmark and small counting-dot motif support the character without competing with her. Screen typography may use system fonts so the site remains fast and offline-safe; the worksheet prioritizes highly legible print typography.
 
 Motion is limited to a short worksheet reveal and button/card feedback. Reduced-motion preferences disable it.
 
@@ -49,6 +51,7 @@ The site is a static HTML, CSS, and JavaScript application suitable for GitHub P
 - `index.html` contains the landing and worksheet views with semantic controls.
 - `styles.css` contains responsive screen styles and a dedicated `@media print` section with `@page { size: letter portrait; }`.
 - `app.js` owns worksheet definitions, random problem generation, rendering, navigation, and printing.
+- `assets/koko-character.png` contains the generated anime character used by the landing experience.
 
 No framework or build step is required. Worksheet definitions are data-driven so later sets can reuse the card and preview flow.
 
@@ -78,6 +81,7 @@ The generator has no external dependencies or expected network failures. If an u
 - Automated checks cover the generator invariants: exactly 50 problems, 25 of each operation, operands and answers within 0–20, and no negative subtraction answers.
 - Browser checks cover landing-to-preview navigation, regeneration, back navigation, and the print action.
 - Visual checks cover desktop, mobile, and a rendered US Letter print preview to confirm the worksheet stays on one page and remains readable.
+- The character asset is checked against the reference for the requested hairstyle, expression, dress cues, child-appropriate presentation, clean edges, and absence of unintended text or extra people.
 
 ## Publishing
 
