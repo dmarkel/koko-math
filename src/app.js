@@ -1,8 +1,11 @@
-import { generateWorksheet } from "./worksheet-generator.js";
+import {
+  generateWorksheet,
+  WORKSHEET_DEFINITIONS,
+} from "./worksheet-generator.js";
 
 const landingView = document.querySelector("#landing-view");
 const worksheetView = document.querySelector("#worksheet-view");
-const worksheetCard = document.querySelector("#worksheet-card");
+const worksheetCards = document.querySelectorAll("[data-worksheet-id]");
 const homeLink = document.querySelector("#home-link");
 const backButton = document.querySelector("#back-button");
 const newButton = document.querySelector("#new-button");
@@ -10,7 +13,10 @@ const printButton = document.querySelector("#print-button");
 const problemGrid = document.querySelector("#problem-grid");
 const landingTitle = document.querySelector("#landing-title");
 const previewTitle = document.querySelector("#preview-title");
+const paperRange = document.querySelector("#paper-range");
+const paperTitle = document.querySelector("#paper-title");
 let restoreLandingAfterPrint = false;
+let activeDefinition = WORKSHEET_DEFINITIONS["within-20"];
 
 export function renderProblems(problems) {
   const fragment = document.createDocumentFragment();
@@ -18,25 +24,53 @@ export function renderProblems(problems) {
   for (const problem of problems) {
     const item = document.createElement("li");
     const number = document.createElement("span");
-    const equation = document.createElement("span");
-    const answerLine = document.createElement("span");
+    const verticalProblem = document.createElement("span");
+    const carrySpace = document.createElement("span");
+    const topNumber = document.createElement("span");
+    const bottomRow = document.createElement("span");
+    const operator = document.createElement("span");
+    const bottomNumber = document.createElement("span");
+    const answerRule = document.createElement("span");
 
     number.className = "problem-number";
     number.textContent = `${problem.id}.`;
-    equation.className = "equation";
-    equation.textContent = `${problem.left} ${problem.operator} ${problem.right} =`;
-    answerLine.className = "answer-line";
-    answerLine.setAttribute("aria-label", "answer blank");
+    verticalProblem.className = "vertical-problem";
+    carrySpace.className = "carry-space";
+    carrySpace.setAttribute("aria-hidden", "true");
+    topNumber.className = "top-number";
+    topNumber.textContent = `${problem.left}`;
+    bottomRow.className = "bottom-row";
+    operator.className = "operator";
+    operator.textContent = problem.operator;
+    bottomNumber.className = "bottom-number";
+    bottomNumber.textContent = `${problem.right}`;
+    answerRule.className = "answer-rule";
+    answerRule.setAttribute("aria-hidden", "true");
+    item.setAttribute(
+      "aria-label",
+      `${problem.id}. ${problem.left} ${problem.operator} ${problem.right}`,
+    );
 
-    item.append(number, equation, answerLine);
+    bottomRow.append(operator, bottomNumber);
+    verticalProblem.append(carrySpace, topNumber, bottomRow, answerRule);
+    item.append(number, verticalProblem);
     fragment.append(item);
   }
 
   problemGrid.replaceChildren(fragment);
 }
 
-export function showWorksheet() {
-  renderProblems(generateWorksheet());
+function applyDefinition(definition) {
+  activeDefinition = definition;
+  paperRange.textContent = definition.rangeLabel;
+  paperTitle.textContent = definition.title;
+  problemGrid.className = `problem-grid ${definition.gridClass}`;
+  problemGrid.setAttribute("aria-label", `${definition.problemCount} math problems`);
+}
+
+export function showWorksheet(definition = activeDefinition) {
+  applyDefinition(definition);
+  renderProblems(generateWorksheet(activeDefinition));
   landingView.hidden = true;
   worksheetView.hidden = false;
   document.body.classList.add("showing-worksheet");
@@ -52,9 +86,17 @@ export function showLanding() {
   landingTitle.focus();
 }
 
-worksheetCard.addEventListener("click", showWorksheet);
+for (const card of worksheetCards) {
+  card.addEventListener("click", (event) => {
+    const definition = WORKSHEET_DEFINITIONS[event.currentTarget.dataset.worksheetId];
+
+    if (definition) {
+      showWorksheet(definition);
+    }
+  });
+}
 newButton.addEventListener("click", () => {
-  renderProblems(generateWorksheet());
+  renderProblems(generateWorksheet(activeDefinition));
   previewTitle.focus();
 });
 backButton.addEventListener("click", showLanding);
@@ -66,7 +108,8 @@ printButton.addEventListener("click", () => window.print());
 
 window.addEventListener("beforeprint", () => {
   if (problemGrid.childElementCount === 0) {
-    renderProblems(generateWorksheet());
+    applyDefinition(activeDefinition);
+    renderProblems(generateWorksheet(activeDefinition));
   }
 
   restoreLandingAfterPrint = !landingView.hidden;

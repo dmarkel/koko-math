@@ -9,8 +9,11 @@ test("index provides the complete landing and worksheet flow", async () => {
 
   assert.match(html, /id="landing-view"/);
   assert.match(html, /id="worksheet-view"/);
-  assert.match(html, /id="worksheet-card"/);
+  assert.match(html, /data-worksheet-id="within-20"/);
+  assert.match(html, /data-worksheet-id="within-100"/);
   assert.match(html, /Addition &amp; subtraction within 20/);
+  assert.match(html, /Addition &amp; subtraction within 100/);
+  assert.match(html, /Grade 1 · 20 problems/);
   assert.match(html, /id="back-button"/);
   assert.match(html, /id="new-button"/);
   assert.match(html, /id="print-button"/);
@@ -26,10 +29,18 @@ test("application controller wires generation, navigation, and printing", async 
   const script = await readFile(projectFile("src/app.js"), "utf8");
 
   assert.match(script, /generateWorksheet/);
+  assert.match(script, /WORKSHEET_DEFINITIONS/);
+  assert.match(script, /dataset\.worksheetId/);
   assert.match(script, /showWorksheet/);
   assert.match(script, /showLanding/);
   assert.match(script, /renderProblems/);
   assert.match(script, /window\.print\(\)/);
   assert.match(script, /beforeprint/);
   assert.match(script, /textContent/);
+  assert.match(script, /carry-space/);
+  assert.match(script, /top-number/);
+  assert.match(script, /bottom-row/);
+  assert.match(script, /operator/);
+  assert.match(script, /bottom-number/);
+  assert.match(script, /answer-rule/);
 });

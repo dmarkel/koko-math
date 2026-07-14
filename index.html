@@ -44,18 +44,33 @@
             <p>More Koko Math sheets are on the way.</p>
           </div>
 
-          <button class="worksheet-card" id="worksheet-card" type="button">
-            <span class="card-icon" aria-hidden="true">
-              <span>8 + 4</span>
-              <span>15 − 6</span>
-            </span>
-            <span class="card-content">
-              <span class="card-label">Grade 1 · 50 problems</span>
-              <strong>Addition &amp; subtraction within 20</strong>
-              <span>Mixed practice with no negative answers.</span>
-            </span>
-            <span class="card-action" aria-hidden="true">Make a sheet <b>→</b></span>
-          </button>
+          <div class="worksheet-cards">
+            <button class="worksheet-card" data-worksheet-id="within-20" type="button">
+              <span class="card-icon" aria-hidden="true">
+                <span>8 + 4</span>
+                <span>15 − 6</span>
+              </span>
+              <span class="card-content">
+                <span class="card-label">Grade 1 · 50 problems</span>
+                <strong>Addition &amp; subtraction within 20</strong>
+                <span>Positive numbers only, with no negative answers.</span>
+              </span>
+              <span class="card-action" aria-hidden="true">Make a sheet <b>→</b></span>
+            </button>
+
+            <button class="worksheet-card worksheet-card-advanced" data-worksheet-id="within-100" type="button">
+              <span class="card-icon" aria-hidden="true">
+                <span>48 + 27</span>
+                <span>86 − 34</span>
+              </span>
+              <span class="card-content">
+                <span class="card-label">Grade 1 · 20 problems</span>
+                <strong>Addition &amp; subtraction within 100</strong>
+                <span>Extra room for carrying and borrowing.</span>
+              </span>
+              <span class="card-action" aria-hidden="true">Make a sheet <b>→</b></span>
+            </button>
+          </div>
         </section>
       </section>
 
@@ -90,13 +105,13 @@
 
             <div class="paper-title">
               <div>
-                <span>Mixed practice · within 20</span>
-                <h2>Addition &amp; Subtraction</h2>
+                <span id="paper-range">Mixed practice · within 20</span>
+                <h2 id="paper-title">Addition &amp; Subtraction</h2>
               </div>
               <p>Do your best!</p>
             </div>
 
-            <ol class="problem-grid" id="problem-grid" aria-label="50 math problems"></ol>
+            <ol class="problem-grid problem-grid--50" id="problem-grid" aria-label="50 math problems"></ol>
 
             <footer class="paper-footer">
               <span>KokoMath.com</span>

@@ -13,7 +13,10 @@ test("print styles create one clean Letter worksheet", async () => {
   assert.match(css, /@media print/);
   assert.match(css, /\.site-header[\s\S]*display:\s*none/);
   assert.match(css, /\.worksheet-toolbar[\s\S]*display:\s*none/);
-  assert.match(css, /\.problem-grid[\s\S]*grid-template-columns:\s*repeat\(5,/);
+  assert.match(css, /\.problem-grid--50[\s\S]*grid-template-columns:\s*repeat\(5,/);
+  assert.match(css, /\.problem-grid--50[\s\S]*grid-template-rows:\s*repeat\(10,/);
+  assert.match(css, /\.problem-grid--20[\s\S]*grid-template-columns:\s*repeat\(4,/);
+  assert.match(css, /\.problem-grid--20[\s\S]*grid-template-rows:\s*repeat\(5,/);
   assert.match(css, /break-inside:\s*avoid/);
 });
 
