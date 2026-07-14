@@ -2,14 +2,15 @@
 
 ## Goal
 
-Create the first worksheet set for Koko Math, a simple website that can grow into a library of printable elementary math practice. The first set generates 50 mixed addition and subtraction problems appropriate for a first grader and prints cleanly on one US Letter sheet.
+Create the first two worksheet sets for Koko Math, a simple website that can grow into a library of printable elementary math practice. Both sets generate mixed addition and subtraction problems and print cleanly on one US Letter sheet.
 
 ## Audience and constraints
 
 - The learner is a first grader.
-- Every operand and answer is a whole number from 0 through 20.
-- Subtraction never produces a negative answer.
-- Each generated worksheet contains exactly 50 problems.
+- Every operand and answer is a positive whole number; zero never appears as an operand or answer.
+- Subtraction always produces a positive answer.
+- The within-20 worksheet contains exactly 50 problems.
+- The within-100 worksheet contains exactly 20 problems.
 - The printable output contains problems only; there is no answer key.
 - The worksheet must fit on one portrait US Letter page using a normal browser print dialog and printer.
 - The site must work without accounts, a server, or network requests after it loads.
@@ -18,9 +19,14 @@ Create the first worksheet set for Koko Math, a simple website that can grow int
 
 ### Landing page
 
-The landing page introduces Koko Math as a growing collection of printable practice sheets. A custom anime-style Koko character welcomes the learner beside the introduction. The page displays worksheet sets as clear cards. The first and only active card is “Addition & subtraction within 20,” labeled for Grade 1 and 50 problems. The structure will support adding more worksheet cards later without changing the generator flow.
+The landing page introduces Koko Math as a growing collection of printable practice sheets. A custom anime-style Koko character welcomes the learner beside the introduction. The page displays two active worksheet cards:
 
-Selecting the active card generates a new worksheet immediately and opens its preview. The action should feel direct: there is no settings form for this first set.
+- “Addition & subtraction within 20,” labeled Grade 1 and 50 problems.
+- “Addition & subtraction within 100,” labeled Grade 1 and 20 problems.
+
+The structure will support adding more worksheet cards later without changing the generator flow.
+
+Selecting either card generates a new worksheet immediately and opens its preview. The action should feel direct: there is no settings form.
 
 ### Worksheet preview
 
@@ -30,9 +36,11 @@ The screen preview shows the actual paper in a centered page frame. A compact to
 - New worksheet
 - Print worksheet
 
-The worksheet includes the Koko Math name, the set title, Name and Date lines, and 50 numbered problems arranged in a 5-column by 10-row grid. Problems use a horizontal equation format with a generous answer line, making the full set readable while fitting on one page.
+The worksheet includes the Koko Math name, the selected set title, Name and Date lines, and numbered problems in a vertical arithmetic format. Each problem right-aligns the first and second numbers, places the operation sign beside the second number, and draws an answer rule underneath so the learner can carry or borrow above the numbers and write the answer below.
 
-Generating a new worksheet replaces all 50 problems. Printing hides the website navigation, toolbar, background, and page-frame decoration so only the worksheet appears.
+The within-20 worksheet uses a compact 5-column by 10-row grid. The within-100 worksheet uses a spacious 4-column by 5-row grid. Both fit on one page.
+
+Generating a new worksheet replaces every problem using the selected set's rules. Printing hides the website navigation, toolbar, background, and page-frame decoration so only the worksheet appears.
 
 ## Visual direction
 
@@ -53,20 +61,21 @@ The site is a static HTML, CSS, and JavaScript application suitable for GitHub P
 - `app.js` owns worksheet definitions, random problem generation, rendering, navigation, and printing.
 - `assets/koko-character.png` contains the generated anime character used by the landing experience.
 
-No framework or build step is required. Worksheet definitions are data-driven so later sets can reuse the card and preview flow.
+No framework or build step is required. Worksheet definitions are data-driven and provide their title, range, problem count, operation balance, and print-grid class so both sets reuse the card, generation, and preview flow.
 
 ## Problem generation
 
-For each of 50 positions, the generator chooses addition or subtraction while keeping the sheet balanced at 25 of each, then shuffles their order.
+Each sheet contains an even balance of addition and subtraction, then shuffles their order: 25 of each for the within-20 set and 10 of each for the within-100 set.
 
-- Addition: choose a total from 0–20, then choose the first addend from 0 through that total. The second addend is the remainder. This guarantees the answer is at most 20.
-- Subtraction: choose a minuend from 0–20, then choose a subtrahend from 0 through the minuend. This guarantees a non-negative answer.
+- Addition: choose two positive addends whose sum is no greater than the selected worksheet maximum. The answer is therefore between 2 and the maximum.
+- Subtraction: choose a positive minuend no greater than the selected maximum, then choose a positive subtrahend strictly smaller than the minuend. The answer is therefore positive and no greater than the maximum.
 
 Duplicate equations are avoided within a sheet where practical. Since the valid problem space is much larger than 50, generation retries duplicates and falls back safely rather than risking an endless loop.
 
 ## Responsive and accessible behavior
 
 - The landing page works from small phones through desktop screens.
+- On phone widths, the hero copy and character are separate normal-flow blocks. All headline, paragraph, and worksheet-link text finishes before the Koko character begins, so the character cannot cover or intercept the text at any supported width.
 - The worksheet preview may scale visually on narrow screens, but print dimensions remain fixed.
 - All actions use native buttons or links, visible focus states, and clear labels.
 - Color contrast is sufficient for controls and content; meaning is not conveyed by color alone.
@@ -78,9 +87,9 @@ The generator has no external dependencies or expected network failures. If an u
 
 ## Verification
 
-- Automated checks cover the generator invariants: exactly 50 problems, 25 of each operation, operands and answers within 0–20, and no negative subtraction answers.
-- Browser checks cover landing-to-preview navigation, regeneration, back navigation, and the print action.
-- Visual checks cover desktop, mobile, and a rendered US Letter print preview to confirm the worksheet stays on one page and remains readable.
+- Automated checks cover both generator configurations, exact problem and operation counts, positive operands and answers within the configured maximum, correct arithmetic, and unique equations.
+- Browser checks cover both landing cards, the selected worksheet title and count, regeneration, back navigation, and the print action.
+- Visual checks cover desktop, mobile, and rendered US Letter print previews for both worksheets. Mobile verification specifically checks that the hero copy and Koko image rectangles do not overlap. Both printed worksheets must remain one page and readable.
 - The character asset is checked against the reference for the requested hairstyle, expression, dress cues, child-appropriate presentation, clean edges, and absence of unintended text or extra people.
 
 ## Publishing
