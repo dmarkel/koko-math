@@ -10,6 +10,7 @@ const printButton = document.querySelector("#print-button");
 const problemGrid = document.querySelector("#problem-grid");
 const landingTitle = document.querySelector("#landing-title");
 const previewTitle = document.querySelector("#preview-title");
+let restoreLandingAfterPrint = false;
 
 export function renderProblems(problems) {
   const fragment = document.createDocumentFragment();
@@ -62,3 +63,21 @@ homeLink.addEventListener("click", (event) => {
   showLanding();
 });
 printButton.addEventListener("click", () => window.print());
+
+window.addEventListener("beforeprint", () => {
+  if (problemGrid.childElementCount === 0) {
+    renderProblems(generateWorksheet());
+  }
+
+  restoreLandingAfterPrint = !landingView.hidden;
+  landingView.hidden = true;
+  worksheetView.hidden = false;
+});
+
+window.addEventListener("afterprint", () => {
+  if (restoreLandingAfterPrint) {
+    worksheetView.hidden = true;
+    landingView.hidden = false;
+    restoreLandingAfterPrint = false;
+  }
+});

@@ -30,5 +30,6 @@ test("application controller wires generation, navigation, and printing", async 
   assert.match(script, /showLanding/);
   assert.match(script, /renderProblems/);
   assert.match(script, /window\.print\(\)/);
+  assert.match(script, /beforeprint/);
   assert.match(script, /textContent/);
 });
