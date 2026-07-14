@@ -19,6 +19,16 @@ export const WORKSHEET_DEFINITIONS = Object.freeze({
     perOperation: 10,
     gridClass: "problem-grid--20",
   }),
+  "within-1000": Object.freeze({
+    id: "within-1000",
+    title: "Addition & Subtraction",
+    shortTitle: "Addition & subtraction within 1,000",
+    rangeLabel: "Mixed practice · within 1,000",
+    maximum: 1000,
+    problemCount: 20,
+    perOperation: 10,
+    gridClass: "problem-grid--20",
+  }),
 });
 
 export function shuffle(items, random = Math.random) {
@@ -32,24 +42,56 @@ export function shuffle(items, random = Math.random) {
   return result;
 }
 
-function additionPool(maximum) {
-  const problems = [];
+function randomInteger(minimum, maximum, random) {
+  return minimum + Math.floor(random() * (maximum - minimum + 1));
+}
 
-  for (let left = 1; left < maximum; left += 1) {
-    for (let right = 1; left + right <= maximum; right += 1) {
-      problems.push({ left, operator: "+", right, answer: left + right });
+function addUnique(problems, equations, problem) {
+  const equation = `${problem.left}${problem.operator}${problem.right}`;
+
+  if (equations.has(equation)) {
+    return false;
+  }
+
+  equations.add(equation);
+  problems.push(problem);
+  return true;
+}
+
+function additionProblems(maximum, count, random) {
+  const problems = [];
+  const equations = new Set();
+  const maximumAttempts = count * 20;
+
+  for (let attempt = 0; problems.length < count && attempt < maximumAttempts; attempt += 1) {
+    const left = randomInteger(1, maximum - 1, random);
+    const right = randomInteger(1, maximum - left, random);
+    addUnique(problems, equations, { left, operator: "+", right, answer: left + right });
+  }
+
+  for (let left = 1; problems.length < count && left < maximum; left += 1) {
+    for (let right = 1; problems.length < count && left + right <= maximum; right += 1) {
+      addUnique(problems, equations, { left, operator: "+", right, answer: left + right });
     }
   }
 
   return problems;
 }
 
-function subtractionPool(maximum) {
+function subtractionProblems(maximum, count, random) {
   const problems = [];
+  const equations = new Set();
+  const maximumAttempts = count * 20;
 
-  for (let left = 2; left <= maximum; left += 1) {
-    for (let right = 1; right < left; right += 1) {
-      problems.push({ left, operator: "−", right, answer: left - right });
+  for (let attempt = 0; problems.length < count && attempt < maximumAttempts; attempt += 1) {
+    const left = randomInteger(2, maximum, random);
+    const right = randomInteger(1, left - 1, random);
+    addUnique(problems, equations, { left, operator: "−", right, answer: left - right });
+  }
+
+  for (let left = 2; problems.length < count && left <= maximum; left += 1) {
+    for (let right = 1; problems.length < count && right < left; right += 1) {
+      addUnique(problems, equations, { left, operator: "−", right, answer: left - right });
     }
   }
 
@@ -60,13 +102,15 @@ export function generateWorksheet(
   definition = WORKSHEET_DEFINITIONS["within-20"],
   random = Math.random,
 ) {
-  const additions = shuffle(additionPool(definition.maximum), random).slice(
-    0,
+  const additions = additionProblems(
+    definition.maximum,
     definition.perOperation,
+    random,
   );
-  const subtractions = shuffle(subtractionPool(definition.maximum), random).slice(
-    0,
+  const subtractions = subtractionProblems(
+    definition.maximum,
     definition.perOperation,
+    random,
   );
 
   return shuffle([...additions, ...subtractions], random).map((problem, index) => ({

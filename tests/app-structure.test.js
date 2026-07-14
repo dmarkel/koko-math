@@ -11,9 +11,12 @@ test("index provides the complete landing and worksheet flow", async () => {
   assert.match(html, /id="worksheet-view"/);
   assert.match(html, /data-worksheet-id="within-20"/);
   assert.match(html, /data-worksheet-id="within-100"/);
+  assert.match(html, /data-worksheet-id="within-1000"/);
   assert.match(html, /Addition &amp; subtraction within 20/);
   assert.match(html, /Addition &amp; subtraction within 100/);
+  assert.match(html, /Addition &amp; subtraction within 1,000/);
   assert.match(html, /Grade 1 · 20 problems/);
+  assert.match(html, /Grade 2 · 20 problems/);
   assert.match(html, /id="back-button"/);
   assert.match(html, /id="new-button"/);
   assert.match(html, /id="print-button"/);

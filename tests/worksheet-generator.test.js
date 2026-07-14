@@ -41,6 +41,19 @@ for (const definition of Object.values(WORKSHEET_DEFINITIONS)) {
   });
 }
 
+test("within-1000 is a Grade 2-sized 20-problem worksheet", () => {
+  assert.deepEqual(WORKSHEET_DEFINITIONS["within-1000"], {
+    id: "within-1000",
+    title: "Addition & Subtraction",
+    shortTitle: "Addition & subtraction within 1,000",
+    rangeLabel: "Mixed practice · within 1,000",
+    maximum: 1000,
+    problemCount: 20,
+    perOperation: 10,
+    gridClass: "problem-grid--20",
+  });
+});
+
 test("shuffle returns a shuffled copy without mutating the input", () => {
   const original = [1, 2, 3, 4];
   const shuffled = shuffle(original, () => 0);
