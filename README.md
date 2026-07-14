@@ -1,12 +1,14 @@
 # Koko Math
 
-Koko Math is a cheerful collection of printable practice sheets for early learners. The first worksheet creates 50 unique addition and subtraction problems within 20 for first graders.
+Koko Math is a cheerful collection of printable practice sheets for early learners. It includes mixed addition and subtraction within 20 and within 100 for first graders.
 
 ## Worksheet rules
 
-- 25 addition and 25 subtraction problems per sheet
-- Every operand and answer stays between 0 and 20
-- Subtraction never produces a negative answer
+- Within 20: 50 problems, split evenly between addition and subtraction
+- Within 100: 20 problems, split evenly between addition and subtraction
+- Every operand and answer is positive; zero never appears
+- Subtraction never produces a zero or negative answer
+- Problems are stacked vertically with room for carrying and borrowing
 - No answer key
 - Fits one portrait US Letter page
 

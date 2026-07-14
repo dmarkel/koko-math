@@ -674,7 +674,7 @@ a:focus-visible,
 }
 
 .carry-space {
-  height: 0.09in;
+  height: 0.14in;
 }
 
 .top-number,
@@ -695,7 +695,7 @@ a:focus-visible,
 }
 
 .answer-rule {
-  height: 0.18in;
+  height: 0.13in;
   border-top: 1.5px solid #1e3036;
 }
 
@@ -808,17 +808,19 @@ a:focus-visible,
   }
 
   .hero-character {
+    display: grid;
     align-self: stretch;
     width: 100%;
-    min-height: 370px;
-    margin-top: 20px;
+    min-height: 0;
+    margin-top: 28px;
+    place-items: start center;
   }
 
   .hero-character img {
-    right: 50%;
-    bottom: -35px;
-    width: 390px;
-    transform: translateX(50%);
+    position: static;
+    width: min(92%, 360px);
+    max-height: none;
+    transform: none;
   }
 
   .worksheet-library {

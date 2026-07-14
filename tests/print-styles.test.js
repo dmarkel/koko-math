@@ -17,6 +17,7 @@ test("print styles create one clean Letter worksheet", async () => {
   assert.match(css, /\.problem-grid--50[\s\S]*grid-template-rows:\s*repeat\(10,/);
   assert.match(css, /\.problem-grid--20[\s\S]*grid-template-columns:\s*repeat\(4,/);
   assert.match(css, /\.problem-grid--20[\s\S]*grid-template-rows:\s*repeat\(5,/);
+  assert.match(css, /\.carry-space[\s\S]*height:\s*0\.14in/);
   assert.match(css, /break-inside:\s*avoid/);
 });
 
@@ -28,4 +29,8 @@ test("screen styles include responsive, focus, and reduced-motion treatment", as
   assert.match(css, /@media \(max-width:/);
   assert.match(css, /--lemon:/);
   assert.match(css, /--sky:/);
+  assert.match(
+    css,
+    /@media \(max-width: 680px\)[\s\S]*\.hero-character img\s*{[\s\S]*position:\s*static/,
+  );
 });

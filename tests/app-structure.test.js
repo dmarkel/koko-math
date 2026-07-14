@@ -31,6 +31,7 @@ test("application controller wires generation, navigation, and printing", async 
   assert.match(script, /generateWorksheet/);
   assert.match(script, /WORKSHEET_DEFINITIONS/);
   assert.match(script, /dataset\.worksheetId/);
+  assert.match(script, /URLSearchParams/);
   assert.match(script, /showWorksheet/);
   assert.match(script, /showLanding/);
   assert.match(script, /renderProblems/);

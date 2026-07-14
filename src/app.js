@@ -15,8 +15,10 @@ const landingTitle = document.querySelector("#landing-title");
 const previewTitle = document.querySelector("#preview-title");
 const paperRange = document.querySelector("#paper-range");
 const paperTitle = document.querySelector("#paper-title");
+const requestedWorksheetId = new URLSearchParams(window.location.search).get("worksheet");
 let restoreLandingAfterPrint = false;
-let activeDefinition = WORKSHEET_DEFINITIONS["within-20"];
+let activeDefinition =
+  WORKSHEET_DEFINITIONS[requestedWorksheetId] ?? WORKSHEET_DEFINITIONS["within-20"];
 
 export function renderProblems(problems) {
   const fragment = document.createDocumentFragment();
