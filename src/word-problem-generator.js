@@ -65,14 +65,14 @@ const GRADE_1_ADDITION = Object.freeze([
   template("g1-add-apples", "apple", "+", ({ name, q, label }) => `${name} has ${q[0]} ${label(q[0])}. A friend gives ${name} ${q[1]} more. How many ${label(q[0] + q[1])} does ${name} have now?`),
   template("g1-add-books", "book", "+", ({ name, q, label }) => `${name} puts ${q[0]} ${label(q[0])} on a shelf and then adds ${q[1]} more. How many ${label(q[0] + q[1])} are on the shelf?`),
   template("g1-add-crayons", "crayon", "+", ({ name, q, label }) => `${name} has ${q[0]} ${label(q[0])}. The teacher gives ${name} ${q[1]} more. How many ${label(q[0] + q[1])} does ${name} have altogether?`),
-  template("g1-add-balls", "ball", "+", ({ q, label }) => `There are ${q[0]} ${label(q[0])} in a basket. Children add ${q[1]} more. How many ${label(q[0] + q[1])} are in the basket now?`),
+  template("g1-add-balls", "ball", "+", ({ q, label }) => `A basket holds ${q[0]} ${label(q[0])}. Children add ${q[1]} more. How many ${label(q[0] + q[1])} are in the basket now?`),
   template("g1-add-flowers", "flower", "+", ({ name, q, label }) => `${name} picks ${q[0]} ${label(q[0])} and then picks ${q[1]} more. How many ${label(q[0] + q[1])} did ${name} pick in all?`),
   template("g1-add-stars", "star", "+", ({ name, q, label }) => `${name} earns ${q[0]} ${label(q[0])} in the morning and ${q[1]} more later. How many ${label(q[0] + q[1])} did ${name} earn?`),
 ]);
 
 const GRADE_1_SUBTRACTION = Object.freeze([
   template("g1-sub-treats", "paw", "-", ({ name, q, label }) => `${name} has ${q[0]} ${label(q[0])} and gives ${q[1]} to a puppy. How many ${label(q[0] - q[1])} are left?`),
-  template("g1-sub-kites", "kite", "-", ({ q, label }) => `${q[0]} ${label(q[0])} are flying at the park. Then ${q[1]} come down. How many ${label(q[0] - q[1])} are still flying?`),
+  template("g1-sub-kites", "kite", "-", ({ q, label }) => `The park has ${q[0]} ${label(q[0])} flying. Children bring ${q[1]} down. How many ${label(q[0] - q[1])} are still flying?`),
   template("g1-sub-blocks", "blocks", "-", ({ name, q, label }) => `${name} builds with ${q[0]} ${label(q[0])}. ${name} puts ${q[1]} away. How many ${label(q[0] - q[1])} are still out?`),
   template("g1-sub-apples", "apple", "-", ({ q, label }) => `A bowl holds ${q[0]} ${label(q[0])}. The family eats ${q[1]}. How many ${label(q[0] - q[1])} remain?`),
   template("g1-sub-books", "book", "-", ({ name, q, label }) => `${name} has ${q[0]} ${label(q[0])} to return. ${name} returns ${q[1]}. How many ${label(q[0] - q[1])} still need to be returned?`),
@@ -87,7 +87,7 @@ const GRADE_2_TWO_STEP = Object.freeze([
   template("g2-ss-crayons", "crayon", "--", ({ q, label }) => `An art room has ${q[0]} ${label(q[0])}. One class borrows ${q[1]}, and another borrows ${q[2]}. How many ${label(q[0] - q[1] - q[2])} stay in the art room?`),
   template("g2-ss-stars", "star", "--", ({ name, q, label }) => `${name} has ${q[0]} ${label(q[0])}. ${name} gives away ${q[1]} on Monday and ${q[2]} on Tuesday. How many ${label(q[0] - q[1] - q[2])} are left?`),
   template("g2-as-balls", "ball", "+-", ({ q, label }) => `A gym bin has ${q[0]} ${label(q[0])}. A teacher adds ${q[1]} and then takes out ${q[2]} for recess. How many ${label(q[0] + q[1] - q[2])} remain in the bin?`),
-  template("g2-as-kites", "kite", "+-", ({ q, label }) => `${q[0]} ${label(q[0])} are at a festival. ${q[1]} more arrive, and then ${q[2]} are packed away. How many ${label(q[0] + q[1] - q[2])} are still out?`),
+  template("g2-as-kites", "kite", "+-", ({ q, label }) => `A festival displays ${q[0]} ${label(q[0])}. Workers add ${q[1]} more, then pack away ${q[2]}. How many ${label(q[0] + q[1] - q[2])} are still out?`),
   template("g2-as-supplies", "backpack", "+-", ({ name, q, label }) => `${name}'s class has ${q[0]} ${label(q[0])}. The teacher brings ${q[1]} more, then students use ${q[2]}. How many ${label(q[0] + q[1] - q[2])} are left?`),
   template("g2-sa-treats", "paw", "-+", ({ q, label }) => `A pet shop has ${q[0]} ${label(q[0])}. It gives away ${q[1]}, then makes ${q[2]} more. How many ${label(q[0] - q[1] + q[2])} does it have now?`),
   template("g2-sa-books", "book", "-+", ({ q, label }) => `A cart holds ${q[0]} ${label(q[0])}. Students borrow ${q[1]}, and a librarian adds ${q[2]}. How many ${label(q[0] - q[1] + q[2])} are on the cart now?`),

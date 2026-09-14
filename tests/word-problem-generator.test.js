@@ -112,3 +112,14 @@ test("questions use plural nouns after how many even when the answer is one", ()
     }
   }
 });
+
+test("story sentences stay grammatical when a generated quantity is one", () => {
+  for (const definition of Object.values(WORD_PROBLEM_DEFINITIONS)) {
+    for (let sheet = 0; sheet < 200; sheet += 1) {
+      const problems = generateWordWorksheet(definition);
+      for (const { text } of problems) {
+        assert.doesNotMatch(text, /\b1 (?:are|come)\b|There are 1\b/);
+      }
+    }
+  }
+});
