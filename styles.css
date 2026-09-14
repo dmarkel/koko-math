@@ -379,6 +379,21 @@ a:focus-visible,
     linear-gradient(90deg, rgb(207 174 48 / 18%) 1px, transparent 1px);
 }
 
+.worksheet-card-word {
+  box-shadow: 9px 9px 0 #f7a398;
+}
+
+.worksheet-card-word:hover {
+  box-shadow: 13px 13px 0 #f7a398;
+}
+
+.card-icon-word {
+  background-color: #fff3ed;
+  background-image:
+    linear-gradient(rgb(244 119 104 / 13%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(244 119 104 / 13%) 1px, transparent 1px);
+}
+
 .card-icon {
   position: relative;
   z-index: 1;
@@ -528,6 +543,11 @@ a:focus-visible,
   border-radius: 18px;
 }
 
+.printable-pages {
+  display: grid;
+  gap: 28px;
+}
+
 .worksheet-paper {
   width: 8.5in;
   min-height: 11in;
@@ -537,6 +557,129 @@ a:focus-visible,
   box-shadow: var(--shadow);
   color: #16252b;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.word-page {
+  width: 8.5in;
+  height: 11in;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0.4in 0.48in 0.3in;
+}
+
+.word-paper-title {
+  padding: 0.13in 0 0.14in;
+}
+
+.word-paper-title h2 {
+  font-size: 21px;
+}
+
+.word-page-label {
+  min-width: 0.82in;
+  text-align: center;
+}
+
+.word-problem-list {
+  display: grid;
+  grid-template-rows: repeat(5, minmax(0, 1fr));
+  height: 8.86in;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid #bfd4da;
+  list-style: none;
+}
+
+.word-problem {
+  display: grid;
+  grid-template-columns: 0.3in minmax(0, 1fr);
+  min-height: 0;
+  padding: 0.08in 0.04in 0.06in;
+  overflow: hidden;
+  border-bottom: 1px dashed #cbdcdf;
+  break-inside: avoid;
+}
+
+.word-problem:last-child {
+  border-bottom: 0;
+}
+
+.word-problem-number {
+  padding-top: 2px;
+  color: #536970;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.word-problem-body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 0;
+}
+
+.word-story-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 0.58in;
+  align-items: center;
+  gap: 0.14in;
+}
+
+.word-story {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.34;
+}
+
+.word-visual {
+  width: 0.52in;
+  height: 0.52in;
+  color: #29444c;
+}
+
+.work-area {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 0.1in;
+  min-height: 0;
+  margin-top: 0.04in;
+}
+
+.work-area-label {
+  padding-top: 2px;
+  color: #65777d;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.work-lines {
+  height: 0.54in;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 0.23in,
+    #d7e2e4 0.23in,
+    #d7e2e4 calc(0.23in + 1px)
+  );
+}
+
+.word-answer {
+  display: flex;
+  align-items: end;
+  justify-content: flex-end;
+  gap: 0.08in;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.word-answer i {
+  display: inline-block;
+  width: 1.1in;
+  height: 0.18in;
+  border-bottom: 1.5px solid #243f48;
 }
 
 .paper-header {
@@ -916,7 +1059,7 @@ a:focus-visible,
   html,
   body {
     width: 8.5in;
-    height: 11in;
+    height: auto;
     margin: 0;
     background: #fff;
   }
@@ -932,7 +1075,7 @@ a:focus-visible,
   .paper-stage {
     display: block !important;
     width: 8.5in;
-    height: 11in;
+    height: auto;
     margin: 0;
     padding: 0;
     overflow: visible;
@@ -946,6 +1089,20 @@ a:focus-visible,
     box-shadow: none;
     break-inside: avoid;
     break-after: avoid;
+  }
+
+  .printable-pages {
+    display: block;
+    width: 8.5in;
+    margin: 0;
+  }
+
+  .word-page:not(:last-child) {
+    break-after: page;
+  }
+
+  .word-page:last-child {
+    break-after: auto;
   }
 
 }

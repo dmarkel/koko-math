@@ -34,3 +34,18 @@ test("screen styles include responsive, focus, and reduced-motion treatment", as
     /@media \(max-width: 680px\)[\s\S]*\.hero-character img\s*{[\s\S]*position:\s*static/,
   );
 });
+
+test("word-problem styles create exactly two complete Letter pages", async () => {
+  const css = await readFile(stylesheet, "utf8");
+
+  assert.match(css, /\.printable-pages\s*{[\s\S]*display:\s*grid/);
+  assert.match(css, /\.word-page\s*{[\s\S]*height:\s*11in/);
+  assert.match(css, /\.word-problem-list\s*{[\s\S]*grid-template-rows:\s*repeat\(5,/);
+  assert.match(css, /\.word-problem\s*{[\s\S]*break-inside:\s*avoid/);
+  assert.match(css, /\.word-visual\s*{[\s\S]*width:/);
+  assert.match(css, /\.work-area\s*{/);
+  assert.match(css, /\.word-answer\s*{/);
+  assert.match(css, /@media print[\s\S]*\.word-page:not\(:last-child\)[\s\S]*break-after:\s*page/);
+  assert.match(css, /@media print[\s\S]*\.word-page:last-child[\s\S]*break-after:\s*auto/);
+  assert.match(css, /@media print[\s\S]*\.worksheet-view,[\s\S]*\.paper-stage\s*{[\s\S]*height:\s*auto/);
+});
