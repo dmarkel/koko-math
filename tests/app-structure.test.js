@@ -36,6 +36,23 @@ test("index provides the complete landing and worksheet flow", async () => {
   assert.doesNotMatch(html, /Photo-1|codex-remote-attachments/);
 });
 
+test("landing page groups every worksheet under its grade", async () => {
+  const html = await readFile(projectFile("index.html"), "utf8");
+  const gradeOne = html.match(/<section class="grade-library"[^>]*data-grade="1"[\s\S]*?<\/section>/)?.[0] ?? "";
+  const gradeTwo = html.match(/<section class="grade-library"[^>]*data-grade="2"[\s\S]*?<\/section>/)?.[0] ?? "";
+
+  assert.match(gradeOne, /Grade 1 worksheets/);
+  assert.match(gradeOne, /data-worksheet-id="within-20"/);
+  assert.match(gradeOne, /data-worksheet-id="within-100"/);
+  assert.match(gradeOne, /data-worksheet-id="word-grade-1"/);
+  assert.doesNotMatch(gradeOne, /data-worksheet-id="within-1000"|data-worksheet-id="word-grade-2"/);
+
+  assert.match(gradeTwo, /Grade 2 worksheets/);
+  assert.match(gradeTwo, /data-worksheet-id="within-1000"/);
+  assert.match(gradeTwo, /data-worksheet-id="word-grade-2"/);
+  assert.doesNotMatch(gradeTwo, /data-worksheet-id="within-20"|data-worksheet-id="within-100"|data-worksheet-id="word-grade-1"/);
+});
+
 test("application controller wires generation, navigation, and printing", async () => {
   const script = await readFile(projectFile("src/app.js"), "utf8");
 
