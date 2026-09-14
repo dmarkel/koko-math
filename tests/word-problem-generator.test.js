@@ -99,3 +99,16 @@ test("word-problem generation completes with a collision-heavy random source", (
     assert.equal(new Set(problems.map(({ arithmeticSignature }) => arithmeticSignature)).size, 10);
   }
 });
+
+test("questions use plural nouns after how many even when the answer is one", () => {
+  const singularNouns = "apple|book|crayon|ball|flower|pet treat|kite|star sticker|school supply|block";
+
+  for (const definition of Object.values(WORD_PROBLEM_DEFINITIONS)) {
+    for (let sheet = 0; sheet < 100; sheet += 1) {
+      const problems = generateWordWorksheet(definition);
+      for (const { text } of problems) {
+        assert.doesNotMatch(text, new RegExp(`How many (${singularNouns})\\b`));
+      }
+    }
+  }
+});

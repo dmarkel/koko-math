@@ -182,7 +182,11 @@ function createProblem(storyTemplate, definition, random, attempt) {
   const subject = SUBJECTS[storyTemplate.visualId];
   const label = (count) => count === 1 ? subject.singular : subject.plural;
   const name = pick(NAMES, source);
-  const text = storyTemplate.render({ name, q: quantities, label });
+  const renderedText = storyTemplate.render({ name, q: quantities, label });
+  const text = renderedText.replace(
+    `How many ${subject.singular} `,
+    `How many ${subject.plural} `,
+  );
 
   return {
     grade: definition.grade,
