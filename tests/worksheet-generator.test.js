@@ -7,7 +7,7 @@ import {
   WORKSHEET_DEFINITIONS,
 } from "../src/worksheet-generator.js";
 
-for (const definition of Object.values(WORKSHEET_DEFINITIONS)) {
+for (const definition of Object.values(WORKSHEET_DEFINITIONS).filter(({ kind }) => kind === "arithmetic")) {
   test(`${definition.id} creates a balanced sheet with positive values`, () => {
     for (let sheet = 0; sheet < 100; sheet += 1) {
       const problems = generateWorksheet(definition);
@@ -41,9 +41,23 @@ for (const definition of Object.values(WORKSHEET_DEFINITIONS)) {
   });
 }
 
+test("the worksheet registry identifies arithmetic and word worksheet kinds", () => {
+  assert.deepEqual(
+    Object.fromEntries(Object.entries(WORKSHEET_DEFINITIONS).map(([id, definition]) => [id, definition.kind])),
+    {
+      "within-20": "arithmetic",
+      "within-100": "arithmetic",
+      "within-1000": "arithmetic",
+      "word-grade-1": "word",
+      "word-grade-2": "word",
+    },
+  );
+});
+
 test("within-1000 is a Grade 2-sized 20-problem worksheet", () => {
   assert.deepEqual(WORKSHEET_DEFINITIONS["within-1000"], {
     id: "within-1000",
+    kind: "arithmetic",
     title: "Addition & Subtraction",
     shortTitle: "Addition & subtraction within 1,000",
     rangeLabel: "Mixed practice · within 1,000",

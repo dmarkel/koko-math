@@ -2,6 +2,8 @@ import {
   generateWorksheet,
   WORKSHEET_DEFINITIONS,
 } from "./worksheet-generator.js";
+import { generateWordWorksheet } from "./word-problem-generator.js";
+import { createWordProblemPages } from "./word-problem-renderer.js";
 
 const landingView = document.querySelector("#landing-view");
 const worksheetView = document.querySelector("#worksheet-view");
@@ -10,6 +12,8 @@ const homeLink = document.querySelector("#home-link");
 const backButton = document.querySelector("#back-button");
 const newButton = document.querySelector("#new-button");
 const printButton = document.querySelector("#print-button");
+const printablePages = document.querySelector("#printable-pages");
+const arithmeticPage = document.querySelector("#arithmetic-page");
 const problemGrid = document.querySelector("#problem-grid");
 const landingTitle = document.querySelector("#landing-title");
 const previewTitle = document.querySelector("#preview-title");
@@ -17,6 +21,7 @@ const paperRange = document.querySelector("#paper-range");
 const paperTitle = document.querySelector("#paper-title");
 const requestedWorksheetId = new URLSearchParams(window.location.search).get("worksheet");
 let restoreLandingAfterPrint = false;
+let hasRenderedWorksheet = false;
 let activeDefinition =
   WORKSHEET_DEFINITIONS[requestedWorksheetId] ?? WORKSHEET_DEFINITIONS["within-20"];
 
@@ -70,9 +75,24 @@ function applyDefinition(definition) {
   problemGrid.setAttribute("aria-label", `${definition.problemCount} math problems`);
 }
 
+export function renderActiveWorksheet(definition = activeDefinition) {
+  activeDefinition = definition;
+
+  if (definition.kind === "word") {
+    printablePages.replaceChildren(
+      createWordProblemPages(generateWordWorksheet(definition), definition),
+    );
+  } else {
+    printablePages.replaceChildren(arithmeticPage);
+    applyDefinition(definition);
+    renderProblems(generateWorksheet(definition));
+  }
+
+  hasRenderedWorksheet = true;
+}
+
 export function showWorksheet(definition = activeDefinition) {
-  applyDefinition(definition);
-  renderProblems(generateWorksheet(activeDefinition));
+  renderActiveWorksheet(definition);
   landingView.hidden = true;
   worksheetView.hidden = false;
   document.body.classList.add("showing-worksheet");
@@ -98,7 +118,7 @@ for (const card of worksheetCards) {
   });
 }
 newButton.addEventListener("click", () => {
-  renderProblems(generateWorksheet(activeDefinition));
+  renderActiveWorksheet(activeDefinition);
   previewTitle.focus();
 });
 backButton.addEventListener("click", showLanding);
@@ -109,9 +129,8 @@ homeLink.addEventListener("click", (event) => {
 printButton.addEventListener("click", () => window.print());
 
 window.addEventListener("beforeprint", () => {
-  if (problemGrid.childElementCount === 0) {
-    applyDefinition(activeDefinition);
-    renderProblems(generateWorksheet(activeDefinition));
+  if (!hasRenderedWorksheet) {
+    renderActiveWorksheet(activeDefinition);
   }
 
   restoreLandingAfterPrint = !landingView.hidden;

@@ -1,6 +1,9 @@
+import { WORD_PROBLEM_DEFINITIONS } from "./word-problem-generator.js";
+
 export const WORKSHEET_DEFINITIONS = Object.freeze({
   "within-20": Object.freeze({
     id: "within-20",
+    kind: "arithmetic",
     title: "Addition & Subtraction",
     shortTitle: "Addition & subtraction within 20",
     rangeLabel: "Mixed practice · within 20",
@@ -11,6 +14,7 @@ export const WORKSHEET_DEFINITIONS = Object.freeze({
   }),
   "within-100": Object.freeze({
     id: "within-100",
+    kind: "arithmetic",
     title: "Addition & Subtraction",
     shortTitle: "Addition & subtraction within 100",
     rangeLabel: "Mixed practice · within 100",
@@ -21,6 +25,7 @@ export const WORKSHEET_DEFINITIONS = Object.freeze({
   }),
   "within-1000": Object.freeze({
     id: "within-1000",
+    kind: "arithmetic",
     title: "Addition & Subtraction",
     shortTitle: "Addition & subtraction within 1,000",
     rangeLabel: "Mixed practice · within 1,000",
@@ -29,6 +34,7 @@ export const WORKSHEET_DEFINITIONS = Object.freeze({
     perOperation: 10,
     gridClass: "problem-grid--20",
   }),
+  ...WORD_PROBLEM_DEFINITIONS,
 });
 
 export function shuffle(items, random = Math.random) {
